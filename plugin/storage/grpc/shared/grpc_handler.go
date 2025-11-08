@@ -107,6 +107,7 @@ func (s *GRPCHandler) GetDependencies(ctx context.Context, r *storage_v1.GetDepe
 
 // WriteSpanStream receive the span from stream and save it
 func (s *GRPCHandler) WriteSpanStream(stream storage_v1.StreamingSpanWriterPlugin_WriteSpanStreamServer) error {
+	println("WriteSpanStream")
 	writer := s.impl.StreamingSpanWriter()
 	if writer == nil {
 		return status.Error(codes.Unimplemented, "not implemented")
@@ -129,6 +130,7 @@ func (s *GRPCHandler) WriteSpanStream(stream storage_v1.StreamingSpanWriterPlugi
 
 // WriteSpan saves the span
 func (s *GRPCHandler) WriteSpan(ctx context.Context, r *storage_v1.WriteSpanRequest) (*storage_v1.WriteSpanResponse, error) {
+	println("WriteSpan")
 	err := s.impl.SpanWriter().WriteSpan(ctx, r.Span)
 	if err != nil {
 		return nil, err
@@ -292,6 +294,7 @@ func (s *GRPCHandler) GetArchiveTrace(r *storage_v1.GetTraceRequest, stream stor
 }
 
 func (s *GRPCHandler) WriteArchiveSpan(ctx context.Context, r *storage_v1.WriteSpanRequest) (*storage_v1.WriteSpanResponse, error) {
+	println("WriteArchiveSpan")
 	writer := s.impl.ArchiveSpanWriter()
 	if writer == nil {
 		return nil, status.Error(codes.Unimplemented, "not implemented")
