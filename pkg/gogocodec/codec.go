@@ -45,10 +45,7 @@ type CustomType interface {
 }
 
 func init() {
-	println(encoding)
-	println(proto)
 	defaultCodec = encoding.GetCodec(proto.Name)
-	println(defaultCodec)
 	defaultCodec.Name() // ensure it's not nil
 	encoding.RegisterCodec(newCodec())
 }
